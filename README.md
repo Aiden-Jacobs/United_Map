@@ -1,6 +1,12 @@
 # United_Map
 United Map
 
+    """Route_Manager
+    This class serves as a management wrapper for the Route Class. It allows for easy
+    sorting and filtering of routes, making it easier to display routes to a user based on
+    a variety of criteria.
+    """
+
     """Route_
     the Route_ class is used to create a route, and then keep track of the route. 
     It takes in a list of flights, and then calculates the number of flights and 
