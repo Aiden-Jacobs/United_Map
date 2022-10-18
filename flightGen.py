@@ -1,10 +1,6 @@
 import random
-from select import select
-from symtable import Class
 from datetime import datetime, timedelta
 from sys import argv
-from tkinter.messagebox import NO
-from tracemalloc import start
 # | my classes
 # v 
 import flight
@@ -25,11 +21,12 @@ class Route_Manager():
     def __init__(self, found_routes):
         self.routes = found_routes
         pass
+
     def sortST(self):
+        #sorts with stops and time
         tempL = self.getRoutes()
         tempL.sort(reverse = False, key = route.Route_.getValue)
         return(Route_Manager(tempL))
-        pass
 
     def getRoutes(self):
         return(self.routes)
@@ -150,6 +147,6 @@ for r in RtMnger.sortST().getRoutes():
     print()
     print(str(r))
 
-print(findOB.findFlightsFrom("SBP"))
+#print(findOB.findFlightsFrom("SBP"))
 
 print("\n---Done---")

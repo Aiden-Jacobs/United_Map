@@ -1,6 +1,6 @@
 from datetime import datetime
 class INFO_for_Day():
-    """
+    """INFO_for_Day
     This class stores information about flights departing from and arriving at an airport on a particular date.
 
     Attributes:
