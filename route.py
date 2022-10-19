@@ -68,6 +68,8 @@ class Route_Finder():
                 out.append(f)
         return(out)
 
+
+    #implement lightest spanning tree
     def generateRoutes(self,Start,End, StartTime, searched):
         """generateRoutes
         This function will generate a list of all possible routes from the given starting airport to the given ending airport.
@@ -128,3 +130,43 @@ class Route_Finder():
     def getFoundRoutes(self):
         return(self.FoundRoutes)
 
+
+class Route_Manager():
+    """Route_Manager
+    This class serves as a management wrapper for the Route Class. It allows for easy
+    sorting and filtering of routes, making it easier to display routes to a user based on
+    a variety of criteria.
+    """
+    def __init__(self, found_routes):
+        self.routes = found_routes
+        pass
+
+    def sortST(self):
+        #sorts with stops and time
+        tempL = self.getRoutes()
+        tempL.sort(reverse = False, key = Route_.getValue)
+        return(Route_Manager(tempL))
+
+    def getRoutes(self):
+        return(self.routes)
+
+    def sortByStops(self):
+        tempL = self.getRoutes()
+        tempL.sort(reverse = False, key = Route_.getNumFlights)
+        return(Route_Manager(tempL))
+
+    def filterByStops(self, n):
+        out = []
+        for route in self.getRoutes():
+            if route.getNumFlights()-1 == n:
+                out.append(route)
+        return(Route_Manager(out))
+
+    def sortByTime(self):
+        tempL = self.getRoutes()
+        tempL.sort(reverse = False, key = Route_.getRouteTime)
+        return(Route_Manager(tempL))
+
+    def filterByTime(self):
+        #Not useful
+        pass
