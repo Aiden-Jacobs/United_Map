@@ -124,8 +124,9 @@ class Route_Finder():
 
     def findFlightsTo(self, Dest):
         return(self.DayInfo.getFlightsTo(Dest))
-        pass
         
+    def getDepartureAirports(self):
+        return(self.DayInfo.getdepartureAirports())
 
     def getFoundRoutes(self):
         return(self.FoundRoutes)

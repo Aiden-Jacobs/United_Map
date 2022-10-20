@@ -6,6 +6,7 @@ from sys import argv
 import flight
 import dayinfo
 import route
+import allFD
 seed = 2346 #234
 random.seed(seed)
 print(argv[0])
@@ -13,6 +14,9 @@ print("Seed", seed)
 
 ##setup flight data
 def flightGen():
+    fdget = allFD.fd()
+    FlightsAll = fdget.get()
+
     Airports = {"SFO":["IAH", "MSP", "ORD", "DEN","MSY","SBP"],
     "SBP":["SFO","DEN","LAX"],
     "LAX":["SFO","SBP","DEN","ASE","IAH","ORD"],
@@ -93,13 +97,27 @@ def flightGen():
         #print(Ap, "flights per day", FPD, Airports[Ap])
     ## end setup flight data
 
+    Day2 = dayinfo.INFO_for_Day()
+    for f in FlightsAll:
+        #print(int(f[1][0:2]),int(f[1][3:5]))#departureTime H M
+        departureTime = datetime(2022,10,19,int(f[1][0:2]),int(f[1][3:5]),0)
+        #print(f[2])#departureAirport
+        departureAirport = f[2]
+        #print(f[3])#arrivalAirport
+        arrivalAirport =f[3]
+        #print(int(f[4])*60*60+ (int(f[5])*60)) #flightTime
+        flightTime = (int(f[4])*60*60)+(int(f[5])*60)
+        Day2.addFlight(flight.Flight_(departureAirport, arrivalAirport, departureTime,flightTime))
+
 
     ## main for after data gen
     print(datetime(2022,10,13,0,0,0))
     #print(Day1.FlightsFromAP)
-    findOB = route.Route_Finder(Day1)
+    findOB = route.Route_Finder(Day2)
     return(findOB)
-    findOB.findRoute("SBP","MSY",datetime(2022,10,13,10,0,0),[])
+
+
+    findOB.findRoute("DEN","LGA",datetime(2022,10,13,0,0,0),[])
     RtMnger = route.Route_Manager(findOB.getFoundRoutes())
     print("------------")
 
@@ -110,3 +128,4 @@ def flightGen():
     #print(findOB.findFlightsFrom("SBP"))
 
     print("\n---Done---")
+#flightGen()

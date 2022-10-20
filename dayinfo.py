@@ -58,6 +58,9 @@ class INFO_for_Day():
     def containsApInArrivals(self, Ap):
         return(Ap in self.ArrivalsAtAP)
 
+    def getdepartureAirports(self):
+        return(self.FlightsFromAP.keys())
+
     def getDate(self):
         return(self.date)
         pass

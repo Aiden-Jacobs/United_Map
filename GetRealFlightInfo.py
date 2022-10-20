@@ -1,7 +1,7 @@
 import bs4, requests
 import datetime
 
-Airport = "ord"
+Airport = "orf"
 flight_List = []
 
 getPage = requests.get('https://united-airlines.flight-status.info/'+str(Airport)+'-departures')

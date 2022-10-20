@@ -16,14 +16,29 @@
 </head>
 
 <body>
+    <div id="search_bar">
+      <form id="search_form"action="" method="POST">
+        <label for="FromS">From:</label>
+        <input type="text" id="FromS" name="FromReq">
+        <label for="ToS">To:</label>
+        <input type="text" id="ToS" name="ToReq">
+        <input type="text" id="NumStops" name="NumStopsReq" placeholder="Number Of Stops">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
     <div id="map"></div>
     <script src="{{ url_for('static', filename='js/universal.js') }}" /></script>
 
     
     <script type="text/javascript">
         
+
+      
         {% for cords in latlongs %}
         addPath([[{{cords['lat1']}},{{cords['long1']}}],[{{cords['lat2']}},{{cords['long2']}}]], {{cords['steps']}})
+        {% endfor %}
+        {% for p in pointList %}
+        addPoint([[{{p['lat1']}},{{p['long1']}}],[{{p['lat2']}},{{p['long2']}}]], "{{p['Name']}}")
         {% endfor %}
         //L.polyline([[37.6213, -122.3790],[39.8561, -104.6737]]).addTo(map)
         //addPath([[39.8561, -104.6737],[29.9911, -90.2592]])

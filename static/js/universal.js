@@ -29,6 +29,17 @@ function addPath(latlong,steps) {
     //map.addLayer(path);
   }
 
+  function addPoint(latlong,name) {
+    console.log(name)
+    var path = new L.polyline(latlong, {
+    color: '#1111bb',
+    weight: 7,
+    opacity: 1,
+    smoothFactor: 1
+    }).addTo(map).bindPopup(name);
+    //map.addLayer(path);
+  }
+
 var latlong = [
     [37.6213, -122.3790],
     [39.8561, -104.6737],
