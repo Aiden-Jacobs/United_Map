@@ -55,7 +55,7 @@ class Route_Finder():
     def checkValidStartEnd(self,Start,End):
         if Start == End:
             return(False)
-        if self.DayInfo.containsApInDp(Start) == True and self.DayInfo.containsApInDp(End) == True:
+        if self.DayInfo.containsApInDp(Start) == True and self.DayInfo.containsApInArrivals(End) == True:
             return(True)
         return(False)
     
@@ -159,6 +159,13 @@ class Route_Manager():
         out = []
         for route in self.getRoutes():
             if route.getNumFlights()-1 == n:
+                out.append(route)
+        return(Route_Manager(out))
+
+    def filterLessThanNStops(self, n):
+        out = []
+        for route in self.getRoutes():
+            if route.getNumFlights()-1 <= n:
                 out.append(route)
         return(Route_Manager(out))
 

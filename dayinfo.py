@@ -21,7 +21,9 @@ class INFO_for_Day():
         self.ArrivalsAtAP = {}
         self.date = datetime(2022,10,13,0,0,0) # add get date from data
     def getFlightsOutOf(self,departureAirport):
-        return(self.FlightsFromAP[departureAirport])
+        if departureAirport in self.FlightsFromAP:
+            return(self.FlightsFromAP[departureAirport])
+        return([])
 
     def addFlight(self, flight):
         #add to FlightsFromAP (Departures for airport)
