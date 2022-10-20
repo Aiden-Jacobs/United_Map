@@ -23,14 +23,13 @@
     <script type="text/javascript">
         
         {% for cords in latlongs %}
-        addPath([[{{cords['lat1']}},{{cords['long1']}}],[{{cords['lat2']}},{{cords['long2']}}]])
+        addPath([[{{cords['lat1']}},{{cords['long1']}}],[{{cords['lat2']}},{{cords['long2']}}]], {{cords['steps']}})
         {% endfor %}
         //L.polyline([[37.6213, -122.3790],[39.8561, -104.6737]]).addTo(map)
         //addPath([[39.8561, -104.6737],[29.9911, -90.2592]])
         {% for marker in markers %}
           L.marker([{{ marker['lat'] }}, {{ marker['lon'] }}]).addTo(map)
-          .bindPopup("{{ marker['popup'] }}")
-          .openPopup();
+          .bindPopup("{{ marker['popup'] }}");
         {% endfor %}
     </script>
 

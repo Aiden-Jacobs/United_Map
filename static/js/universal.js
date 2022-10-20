@@ -5,10 +5,24 @@ attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStree
 
 console.log("test of js file");
 
-function addPath(latlong) {
+function addPath(latlong,steps) {
+    console.log(steps)
+    var c = '#0000FF';
+    if(steps == 1){
+        c = '#006600';
+    }
+    if (steps == 2) {
+        c ='#206620'
+    }
+    if (steps == 3) {
+        c = '#666600'
+    }
+    if (steps == 4) {
+        c = '#FF0000'
+    }
     var path = new L.polyline(latlong, {
-    color: '#006600',
-    weight: 3,
+    color: c,
+    weight: 10/steps,
     opacity: 0.1,
     smoothFactor: 1
     }).addTo(map);
