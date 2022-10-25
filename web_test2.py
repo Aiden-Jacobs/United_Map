@@ -20,6 +20,8 @@ def getDepartureAP(FlightDataOb):
 
 def getConnectionsPath(FlightDataOb,start,pl):
     out = []
+    routeList = []
+    i = 0
     f = FlightDataOb.findFlightsFrom(start.upper())
     for dest in f:
         try:
@@ -29,10 +31,14 @@ def getConnectionsPath(FlightDataOb,start,pl):
             'lat2' : lat, 'long2':long,'Name':str(start.upper())})
             out.append({'lat1' : lat, 'long1':long,
                 'lat2' : Airports.getLatlong(dest.getArrivalAirport())[0], 'long2':Airports.getLatlong(dest.getArrivalAirport())[1],'steps':2, 'flight': 1})
+            print(dest.getDepartureTime())
+            routeList.append({'Time':dest.GetFlightTime().total_seconds(),'Steps':1})
+            routeList[i]["Flights"] = {'flight1':str(str(dest.getDepartureTime().strftime("%H:%M:%S"))+" "+str(dest.getDepartureAirport())+"->"+str(dest.getArrivalAirport()))}
+            i += 1
         except:
             pass
-    print("-----",f)
-    return(out)
+    #print("-----",f)
+    return(out,routeList)
     pass
 
 def valueGetTime(item):
@@ -93,7 +99,9 @@ def root(Start = "SBP", End = "MSY", Stops = 2):
         pathList = RandP[0]
         routes = RandP[1]
         if form_data['FromReq'] != '' and form_data['ToReq'] == '':
-            pathList = getConnectionsPath(r, form_data['FromReq'],pointList)
+            RandP = getConnectionsPath(r, form_data['FromReq'],pointList)
+            pathList = RandP[0]
+            routes = RandP[1]
 
     markers=[
         {'lat':Airports.getLatlong(Start)[0],
