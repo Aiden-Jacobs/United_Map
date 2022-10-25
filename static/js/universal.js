@@ -6,10 +6,11 @@ attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStree
 console.log("test of js file");
 
 function addPath(latlong,steps) {
-    console.log(steps)
+    //console.log(steps)
     var c = '#0000FF';
     if(steps == 1){
         c = '#006600';
+        
     }
     if (steps == 2) {
         c ='#206620'
@@ -30,7 +31,7 @@ function addPath(latlong,steps) {
   }
 
   function addPoint(latlong,name) {
-    console.log(name)
+    //console.log(name)
     var path = new L.polyline(latlong, {
     color: '#1111bb',
     weight: 7,

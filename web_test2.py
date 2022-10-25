@@ -5,7 +5,7 @@ from datetime import datetime
 import airportData
 import flightGen
 import route
-Airports = airportData.Airport_Look_UP("us_airports.csv")
+Airports = airportData.Airport_Look_UP("us_airports.csv")#  All_airports.csv
 r = flightGen.flightGen()
 
 def getDepartureAP(FlightDataOb):
@@ -35,22 +35,39 @@ def getConnectionsPath(FlightDataOb,start,pl):
     return(out)
     pass
 
+def valueGetTime(item):
+    ti = item.get('Time')
+    return(ti)
+
 def getPaths(FlightDataOb,Start, End,Stops):#add time check
     pathList = []
+    routeList = []
     if FlightDataOb.checkValidStartEnd(Start, End):
         FlightDataOb.findRoute(Start,End,datetime(2022,10,13,0,0,0),[])
         RtMnger = route.Route_Manager(r.getFoundRoutes())
-        for routes in RtMnger.filterLessThanNStops(Stops).getRoutes():#filterByStops
-            #print(routes)
-            i = 0
+        i = 0
+        for routes in RtMnger.filterLessThanNStops(Stops).sortByStops().getRoutes():#filterByStops
+            #print(routes.getRouteTime())
+            routeList.append({'Time':routes.getRouteTime().total_seconds(),'Steps':routes.getNumFlights()})
+            routeList[i]["Flights"] = {}
+            j = 0
             for flight in routes.getList():
+                j += 1
+                routeList[i]["Flights"]["flight"+str(j)] = str(str(flight.getDepartureTime().strftime("%H:%M:%S"))+" "+str(flight.getDepartureAirport())+"->"+str(flight.getArrivalAirport()))
                 #print(Airports.getLatlong(flight.getDepartureAirport()))
                 #print(Airports.getLatlong(flight.getArrivalAirport()))
                 pathList.append({'lat1' : Airports.getLatlong(flight.getDepartureAirport())[0], 'long1':Airports.getLatlong(flight.getDepartureAirport())[1],
                 'lat2' : Airports.getLatlong(flight.getArrivalAirport())[0], 'long2':Airports.getLatlong(flight.getArrivalAirport())[1],'steps':routes.getNumFlights(), 'flight': flight})
-                i += 1
             pass
-    return(pathList)
+            i += 1
+    #new_list = dict(sorted(routeList.items(), key=lambda item: item[1]))
+    #print(routeList)
+    return(pathList,routeList)
+
+def orderRoutes(routeList):
+
+    pass
+
 app=Flask(__name__)
 @app.route('/')
 #@app.route('/<Start>/<End>')
@@ -71,16 +88,13 @@ def root(Start = "SBP", End = "MSY", Stops = 2):
                 Stops = form_data['NumStopsReq']
 
         pointList = getDepartureAP(r)
-        pathList = getPaths(r,Start, End, int(Stops))
+        RandP =  getPaths(r,Start, End, int(Stops))
+        pathList = RandP[0]
+        routes = RandP[1]
         if form_data['FromReq'] != '' and form_data['ToReq'] == '':
             pathList = getConnectionsPath(r, form_data['FromReq'],pointList)
 
     markers=[
-        {
-        'lat':0,
-        'lon':0,
-        'popup':'This is the middle of the map.'
-        },
         {'lat':Airports.getLatlong(Start)[0],
         'lon':Airports.getLatlong(Start)[1],
         'popup':"Start "+Start},
@@ -96,7 +110,7 @@ def root(Start = "SBP", End = "MSY", Stops = 2):
     'lat2' :29.9911,'long2': -90.2592,'steps':1, 'flight': 4}
     ]
     
-    return render_template('index.html',markers=markers, latlongs = pathList, pointList = pointList)
+    return render_template('index.html',markers=markers, latlongs = pathList, pointList = pointList, r = routes)
 
 
 if __name__ == '__main__':

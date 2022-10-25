@@ -26,6 +26,39 @@
         <input type="submit" value="Submit">
       </form>
     </div>
+
+    <div class="column" ><div id="RouteList">Route List</div></div>
+    <script type="text/javascript">
+      var i = 0
+      {% for p in r %}
+        if(i < 20){
+        //console.log("{{p['Flights']['flight1']}}");
+        var numFlights = {{p['Steps']}};
+        var div = document.createElement("div");
+        div.id = "RouteListItem"
+        div.className = "RouteListItem"
+        div.style.fontSize = "smaller"
+        //div.innerHTML = "{{p['Flights']['flight1']}}","test"; "RouteListItem"+i+""
+        document.getElementById("RouteList").appendChild(div);
+        var tr = document.createElement("div")
+        tr.id = "row"+i+""
+        tr.className = "FlightRow"
+        document.getElementById("RouteListItem").appendChild(tr);
+        console.log(i);
+        {%for f in p['Flights']%}
+          console.log("{{p['Flights'][f]}}");
+          var td = document.createElement("td")
+          td.id = "RouteListItemFlight"
+          td.style.fontSize = "smaller"
+          td.class = "f"
+          td.innerHTML = "{{p['Flights'][f]}}"
+          document.getElementById("row"+i+"").appendChild(td);
+
+        {% endfor %}
+        }
+        i += 1;
+      {% endfor %}
+    </script>
     <div id="map"></div>
     <script src="{{ url_for('static', filename='js/universal.js') }}" /></script>
 
@@ -47,6 +80,5 @@
           .bindPopup("{{ marker['popup'] }}");
         {% endfor %}
     </script>
-
 </body>
 </html>
