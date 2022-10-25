@@ -71,7 +71,6 @@ def getPaths(FlightDataOb,Start, End,Stops):#add time check
     return(pathList,routeList)
 
 def orderRoutes(routeList):
-
     pass
 
 app=Flask(__name__)
