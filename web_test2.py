@@ -78,6 +78,7 @@ def root(Start = "SBP", End = "MSY", Stops = 2):
     End = End.upper()
     pathList = []
     pointList = []
+    routes = []
     if request.method == 'POST':
         form_data = request.form
         print(form_data)
