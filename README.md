@@ -11,13 +11,13 @@ United Map
     This class serves as a management wrapper for the Route Class. It allows for easy
     sorting and filtering of routes, making it easier to display routes to a user based on
     a variety of criteria.
-Functions:
-    sortST - sorts with stops and time
-    getRoutes - gets the routes
-    sortByStops - sorts by stops
-    filterByStops - filters by stops
-    filterLessThanNStops - filters less than n stops
-    sortByTime - sorts by time
+    Functions:
+        sortST - sorts with stops and time
+        getRoutes - gets the routes
+        sortByStops - sorts by stops
+        filterByStops - filters by stops
+        filterLessThanNStops - filters less than n stops
+        sortByTime - sorts by time
     """
 
     """Route_
