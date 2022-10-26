@@ -1,8 +1,22 @@
 # United_Map
+Setup for Linux
+
+    In project directory 
+    1)git init
+    2)git clone URL
+    3)python3 -m venv
+    4). venv/bin/activate
+    5)pip install flask
+    6)pip install pandas
+    7)export FLASK_APP=web_test2.py
+    8)flask run --host=0.0.0.0
+
 
 Requienments 
-    (1) Flask (pip install flask)
-    (2) Pandas (pip install pandas)
+
+    (1) Python 3
+    (2) Flask (pip install flask)
+    (3) Pandas (pip install pandas)
 
 
 United Map
@@ -11,6 +25,7 @@ United Map
     This class serves as a management wrapper for the Route Class. It allows for easy
     sorting and filtering of routes, making it easier to display routes to a user based on
     a variety of criteria.
+    
     Functions:
         sortST - sorts with stops and time
         getRoutes - gets the routes
@@ -26,6 +41,7 @@ United Map
     the route time. It has functions to get the list, get the value (number of flights
     and the route time), get a flight by index, get the number of flights, and get
     the route time. You can print out a route by printing the object.
+    
     Functions:
         getList - Returns the list of flights in the route. 
         getValue - Returns a tuple containing the number of flights and the route time. 
@@ -39,6 +55,7 @@ United Map
     It creates an instance of the Info_for_Day class, which contains information about all flights for that day. 
     This class can then use a series of functions to create possible routes for the day and return
     the possible routes, so that the user may select from them. 
+    
     Functions:
         -GetDepartureAirports: returns list of airports in self.DayInfo that have departures
         -GetFoundRoutes: returns self.FoundRoutes
@@ -62,6 +79,7 @@ United Map
         flightNumber (str): The flight number for the flight.
         available_JOY (list): A list of integers representing the number of JOY class seats available in the aircraft for this flight.
         SAlisted_JOY (list): A list of integers representing the number of JOY class seats that have been assigned to standby passengers for this flight.
+        
     Functions:
         getDepartureAirport- gets the departureAirport
         getArrivalAirport- gets the arrivalAirport
@@ -87,3 +105,5 @@ United Map
         getFlightsTo - returns a list of all flights arriving at a specified airport 
         getFlightsFromTo - returns a list of all flights from one specified airport to another
     """
+
+
