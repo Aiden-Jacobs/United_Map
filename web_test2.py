@@ -74,10 +74,11 @@ def orderRoutes(routeList):
     pass
 
 app=Flask(__name__)
-@app.route('/')
+
 #@app.route('/<Start>/<End>')
 #@app.route('/<Start>/<End>/<Stops>')
 @app.route('/<Start>/<End>/<Stops>',methods = ['POST', 'GET'])
+@app.route('/',methods = ['POST', 'GET'])
 def root(Start = "SBP", End = "MSY", Stops = 2):
     Start = Start.upper()
     End = End.upper()
@@ -119,6 +120,8 @@ def root(Start = "SBP", End = "MSY", Stops = 2):
     ]
     
     return render_template('index.html',markers=markers, latlongs = pathList, pointList = pointList, r = routes)
+
+
 
 
 if __name__ == '__main__':
