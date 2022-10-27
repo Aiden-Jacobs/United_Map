@@ -5,6 +5,49 @@ attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStree
 
 console.log("test of js file");
 
+function midPoint(lat1, lon1, lat2, lon2, depth, points){
+    var out  = []
+    const φ1 = lat1 * Math.PI/180, φ2 = lat2 * Math.PI/180, Δλ = (lon2-lon1) * Math.PI/180, R = 6371e3;
+    const λ2 = lon2 * Math.PI/180, λ1 = lon1 * Math.PI/180
+    const Bx = Math.cos(φ2) * Math.cos(λ2-λ1);
+    const By = Math.cos(φ2) * Math.sin(λ2-λ1);
+    const φ3 = (180*(Math.atan2(Math.sin(φ1) + Math.sin(φ2),
+                          Math.sqrt( (Math.cos(φ1)+Bx)*(Math.cos(φ1)+Bx) + By*By ) )))/Math.PI;
+    const λ3 = (180*(λ1 + Math.atan2(By, Math.cos(φ1) + Bx)))/Math.PI;
+    depth -= 1;
+    if (depth > 0) {
+        
+
+        
+        var result2 = midPoint(lat1, lon1,φ3, λ3, depth, points)
+        
+        result2.forEach(element => {
+            out.push(element)
+        });
+        out.push([φ3, λ3])
+        var result = midPoint(φ3, λ3,lat2, lon2, depth, points)
+        result.forEach(element => {
+            out.push(element)
+        });
+        
+        return (out);
+    }else{
+
+        return ([]);
+    }
+    
+}
+
+function addCurve(latlong,smoothness)//smoothness is exponential 
+{
+    var temp = latlong.pop()
+    var mid = midPoint(latlong[0][0],latlong[0][1],temp[0],temp[1],smoothness,[])
+    mid.forEach(element => {
+        latlong.push(element)
+    });
+    latlong.push(temp)
+}
+
 function addPath(latlong,steps) {
     //console.log(steps)
     var c = '#0000FF';
@@ -21,6 +64,10 @@ function addPath(latlong,steps) {
     if (steps == 4) {
         c = '#FF0000'
     }
+
+    addCurve(latlong,5)
+
+    //console.log(midPoint(latlong[0][0],latlong[0][1],latlong[1][0],latlong[1][1],5,[]))
     var path = new L.polyline(latlong, {
     color: c,
     weight: 10/steps,
