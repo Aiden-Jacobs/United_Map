@@ -9,7 +9,7 @@ Setup for Linux
     5)pip install flask
     6)pip install pandas
     7)export FLASK_APP=web_test2.py
-    8)flask run --host=0.0.0.0
+    8)flask run --host=0.0.0.0  (Do not use for actual deployment just for demo)
 
 
 Requienments 
