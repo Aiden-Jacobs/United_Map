@@ -85,6 +85,7 @@ def root(Start = "SBP", End = "MSY", Stops = 2):
     pathList = []
     pointList = []
     routes = []
+    markers = []
     if request.method == 'POST':
         form_data = request.form
         print(form_data)
@@ -103,21 +104,14 @@ def root(Start = "SBP", End = "MSY", Stops = 2):
             pathList = RandP[0]
             routes = RandP[1]
 
-    markers=[
-        {'lat':Airports.getLatlong(Start)[0],
-        'lon':Airports.getLatlong(Start)[1],
-        'popup':"Start "+Start},
-        {'lat':Airports.getLatlong(End)[0],
-        'lon':Airports.getLatlong(End)[1],
-        'popup':"End "+End}
-        ]
-    latlongs = [{
-    'lat1' : 37.6213, 'long1':-122.3790,
-    'lat2' : 37.6213, 'long2':-122.3790,'steps':2, 'flight': 4
-    },{
-    'lat1' :39.8561,'long1': -104.6737,
-    'lat2' :29.9911,'long2': -90.2592,'steps':1, 'flight': 4}
-    ]
+        markers=[
+            {'lat':Airports.getLatlong(Start)[0],
+            'lon':Airports.getLatlong(Start)[1],
+            'popup':"Start "+Start},
+            {'lat':Airports.getLatlong(End)[0],
+            'lon':Airports.getLatlong(End)[1],
+            'popup':"End "+End}
+            ]
     
     return render_template('index.html',markers=markers, latlongs = pathList, pointList = pointList, r = routes)
 
