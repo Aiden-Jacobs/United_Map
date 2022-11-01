@@ -41,6 +41,13 @@ class Route_():
             temp = "->".join(out)
             return(str(temp)+": "+str(self.getNumFlights()-1)+" stop, "+str(self.getRouteTime())+" Route Time")
 
+    def __eq__ (self, other):
+        if isinstance(other, Route_):
+            if self.route ==  other.route:
+                return True
+        return False
+        pass
+
 class Route_Finder():
     """Route Finder
         This class is used to find routes for a particular day. 
@@ -70,7 +77,7 @@ class Route_Finder():
 
 
     #implement lightest spanning tree
-    def generateRoutes(self,Start,End, StartTime, searched):
+    def generateRoutes(self,Start,End, StartTime, searched, depth = 3):
         """generateRoutes
         This function will generate a list of all possible routes from the given starting airport to the given ending airport.
 
@@ -83,19 +90,19 @@ class Route_Finder():
         out = []
         if Start == End:
             return
-        if Start not in searched:
+        if Start not in searched and depth >= 0:
             for f in self.getNeighbors(Start, StartTime):
                 get.append([f])
             searched.append(Start)
 
         for r in get:
-            if r[len(r)-1].getArrivalAirport() not in searched:
+            if r[len(r)-1].getArrivalAirport() not in searched and depth >= 0:
                 modSearched = searched.copy()
                 airportJustLeft = r[len(r)-1].getDepartureAirport
                 modSearched.append(airportJustLeft)
                 nextDepartureAirport = r[len(r)-1].getArrivalAirport()
                 nextPossibleDepartureTime = r[len(r)-1].GetArrivalTime()
-                temp = self.generateRoutes(nextDepartureAirport,End,nextPossibleDepartureTime,modSearched)
+                temp = self.generateRoutes(nextDepartureAirport,End,nextPossibleDepartureTime,modSearched, depth -1)
                 if temp == None:
                     out.append(r)
                     #out
@@ -108,11 +115,11 @@ class Route_Finder():
                 pass
         return(out)
 
-    def findRoute(self,Start,End, StartTime, searched):
+    def findRoute(self,Start,End, StartTime, searched, stops):
         if self.checkValidStartEnd(Start,End) == False:
             return("Invalid start or end point")
         listOfRoutes = []
-        Routes = self.generateRoutes(Start,End, StartTime, searched)
+        Routes = self.generateRoutes(Start,End, StartTime, searched, stops)
         for Route in Routes:
             RouteToAdd = Route_(Route)
             listOfRoutes.append(RouteToAdd)
@@ -147,6 +154,13 @@ class Route_Manager():
         tempL = self.getRoutes()
         tempL.sort(reverse = False, key = Route_.getValue)
         return(Route_Manager(tempL))
+
+    def getUniqueRoutes(self):
+        UniqueRoutes = []
+        for route in self.routes:
+            if route not in UniqueRoutes:
+                UniqueRoutes.append(route)
+        return(Route_Manager(UniqueRoutes))
 
     def getRoutes(self):
         return(self.routes)
