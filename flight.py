@@ -37,3 +37,9 @@ class Flight_():
     def __repr__(self):
         return(str(self.departureAirport)+"->"+str(self.arrivalAirport))
         return(str(self.departureAirport)+"->"+str(self.arrivalAirport)+"\nFlight Time "+str(self.flightTime)+"\nDeparture Time "+str(self.departureTime)+" Arrival Time "+str(self.arrivalTime)+"\n")
+
+    def __eq__(self, other):
+        if isinstance(other, Flight_):
+            if self.departureAirport == other.departureAirport and self.arrivalAirport == other.arrivalAirport:
+                return True
+        return False
