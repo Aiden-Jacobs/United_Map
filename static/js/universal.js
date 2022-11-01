@@ -5,10 +5,13 @@ attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStree
 
 console.log("test of js file");
 
+
+/* Latitude/longitude spherical geodesy tools                         (c) Chris Veness 2002-2021  */
+/*                                                                                   MIT Licence  */
 function midPoint(lat1, lon1, lat2, lon2, depth, points){
     var out  = []
-    const φ1 = lat1 * Math.PI/180, φ2 = lat2 * Math.PI/180, Δλ = (lon2-lon1) * Math.PI/180, R = 6371e3;
-    const λ2 = lon2 * Math.PI/180, λ1 = lon1 * Math.PI/180
+    const φ1 = lat1 * Math.PI/180, φ2 = lat2 * Math.PI/180 // latitude in rads
+    const λ2 = lon2 * Math.PI/180, λ1 = lon1 * Math.PI/180 // longitude in rads
     const Bx = Math.cos(φ2) * Math.cos(λ2-λ1);
     const By = Math.cos(φ2) * Math.sin(λ2-λ1);
     const φ3 = (180*(Math.atan2(Math.sin(φ1) + Math.sin(φ2),
@@ -16,8 +19,6 @@ function midPoint(lat1, lon1, lat2, lon2, depth, points){
     const λ3 = (180*(λ1 + Math.atan2(By, Math.cos(φ1) + Bx)))/Math.PI;
     depth -= 1;
     if (depth > 0) {
-        
-
         
         var result2 = midPoint(lat1, lon1,φ3, λ3, depth, points)
         
@@ -70,8 +71,8 @@ function addPath(latlong,steps) {
     //console.log(midPoint(latlong[0][0],latlong[0][1],latlong[1][0],latlong[1][1],5,[]))
     var path = new L.polyline(latlong, {
     color: c,
-    weight: 10/steps,
-    opacity: 0.1,
+    weight: 2.5,
+    opacity: .7,
     smoothFactor: 1
     }).addTo(map);
     //map.addLayer(path);
