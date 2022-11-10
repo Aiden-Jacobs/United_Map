@@ -21,6 +21,8 @@ Requienments
 
 United Map
 
+route.py
+
     """Route_Manager
     This class serves as a management wrapper for the Route Class. It allows for easy
     sorting and filtering of routes, making it easier to display routes to a user based on
@@ -66,7 +68,8 @@ United Map
         -FindFlightsFrom: returns list of Flight_ objects which depart from Start
         -FindFlightsTo: returns list of Flight_ objects which have Dest as their destination
     """
-    
+flight.py
+
     """Flight_
     This class represents a flight in an airline schedule.
 
@@ -88,6 +91,7 @@ United Map
         GetArrivalTime- gets the arrivalTime
     """
     
+dayinfo.py
     
     """INFO_for_Day
     This class stores information about flights departing from and arriving at an airport on a particular date.
