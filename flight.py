@@ -30,10 +30,22 @@ class Flight_():
         return(self.arrivalAirport)
     def getDepartureTime(self):
         return(self.departureTime)
+
+    def GetArrivalTime(self):
+        return(self.departureTime)
+
     def GetFlightTime(self):
         return(self.flightTime)
-    def GetArrivalTime(self):
-        return(self.arrivalTime)
+
+    def getJoyListed(self):
+        return(self.SAlisted_JOY)
+
+    def getJoyAvailable():
+        return(self.available_JOY)
+
+    def GetTotalNumSeatsAvailable(self):
+        return(sum(self.available_JOY))
+
     def __repr__(self):
         return(str(self.departureAirport)+"->"+str(self.arrivalAirport))
         return(str(self.departureAirport)+"->"+str(self.arrivalAirport)+"\nFlight Time "+str(self.flightTime)+"\nDeparture Time "+str(self.departureTime)+" Arrival Time "+str(self.arrivalTime)+"\n")
