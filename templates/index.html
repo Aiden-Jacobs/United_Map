@@ -23,6 +23,33 @@
         <label for="ToS">To:</label>
         <input type="text" id="ToS" name="ToReq">
         <input type="text" id="NumStops" name="NumStopsReq" placeholder="Number Of Stops">
+        <input list="Time" name="TimeList" placeholder="Time">
+        <datalist id="Time">
+        <option value="00:00">
+        <option value="01:00">
+        <option value="02:00">
+        <option value="03:00">
+        <option value="04:00">
+        <option value="05:00">
+        <option value="06:00">
+        <option value="07:00">
+        <option value="08:00">
+        <option value="09:00">
+        <option value="10:00">
+        <option value="11:00">
+        <option value="12:00">
+        <option value="13:00">
+        <option value="14:00">
+        <option value="15:00">
+        <option value="16:00">
+        <option value="17:00">
+        <option value="18:00">
+        <option value="19:00">
+        <option value="20:00">
+        <option value="21:00">
+        <option value="22:00">
+        <option value="23:00">
+        </datalist>
         <input type="submit" value="Submit">
       </form>
     </div>
@@ -33,6 +60,7 @@
       {% for p in r %}
         if(i < 30){
           //console.log("{{p['Flights']['flight1']}}");
+          console.log("{{p}}");
           var numFlights = {{p['Steps']}};
           var div = document.createElement("div");
           div.id = "RouteListItem"
@@ -59,7 +87,9 @@
         i += 1;
       {% endfor %}
     </script>
-    <div id="map"></div>
+    <div id="map">
+      <div class="loader"></div>
+    </div>
     <script src="{{ url_for('static', filename='js/universal.js') }}" /></script>
 
     
