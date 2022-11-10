@@ -19,7 +19,10 @@ class Route_():
 
     def getValue(self):
         #print(self.getNumFlights(),self.getRouteTime())
-        return(self.getNumFlights(),self.getRouteTime())
+        return(self.getNumFlights(),self.route[0].getDepartureTime())
+
+    def getStartTime(self):
+        return(self.route[0].getDepartureTime())
 
     def getFlightByIndex(self, n):
         if n >= 0 and n < self.getNumFlights():
@@ -65,6 +68,9 @@ class Route_Finder():
         if self.DayInfo.containsApInDp(Start) == True and self.DayInfo.containsApInArrivals(End) == True:
             return(True)
         return(False)
+
+    def checkValidAirport(self, Airport):
+        return(self.DayInfo.containsApInDp(Airport))
     
     def getNeighbors(self, Start, time):
         # returns list of Flight_
@@ -127,10 +133,19 @@ class Route_Finder():
         #print(out)
 
     def findFlightsFrom(self, Start):
-        return(self.DayInfo.getFlightsOutOf(Start))
+        out = []
+        for f in self.DayInfo.getFlightsOutOf(Start):
+            RouteToAdd = Route_([f])
+            out.append(RouteToAdd)
+        self.FoundRoutes = out
 
     def findFlightsTo(self, Dest):
-        return(self.DayInfo.getFlightsTo(Dest))
+        out = []
+        for f in self.DayInfo.getFlightsTo(Dest):
+            print(f)
+            RouteToAdd = Route_([f])
+            out.append(RouteToAdd)
+        self.FoundRoutes = out
         
     def getDepartureAirports(self):
         return(self.DayInfo.getdepartureAirports())
@@ -154,6 +169,11 @@ class Route_Manager():
         tempL = self.getRoutes()
         tempL.sort(reverse = False, key = Route_.getValue)
         return(Route_Manager(tempL))
+    
+    def sortByStartTime(self):
+        tempL = self.getRoutes()
+        tempL.sort(reverse = False, key = Route_.getStartTime)
+        return(Route_Manager(tempL))
 
     def getUniqueRoutes(self):
         UniqueRoutes = []
@@ -174,6 +194,13 @@ class Route_Manager():
         out = []
         for route in self.getRoutes():
             if route.getNumFlights()-1 == n:
+                out.append(route)
+        return(Route_Manager(out))
+
+    def filterByStartTime(self, n):
+        out = []
+        for route in self.getRoutes():
+            if route.getStartTime() >= n:
                 out.append(route)
         return(Route_Manager(out))
 
