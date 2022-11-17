@@ -109,5 +109,45 @@ dayinfo.py
         getFlightsTo - returns a list of all flights arriving at a specified airport 
         getFlightsFromTo - returns a list of all flights from one specified airport to another
     """
+    
+webElements.py
 
+    """getLinkableAP
+    Returns pointList a list of dictionaries/Json of Points to be passed to the javascript
+        {lat1:Float,long1:Float,lat2:Float,long2:Float,Name:Str(iata_code)}
+    """
+    
+    """getRoutesToDisp
+        Returns routeList a list of dictionaries of dictionaries/Json of routes to a destination to be passed to the HTML&javascript to be displayed in a list
+                [{Time: Route Time in seconds, Steps: stops in Route, Flights:{flight1: str(Departure time iata_code->iata_code), flight_n: str(Departure time iata_code->iata_code)}},...] 
+        RtMnger, is type Route_Manager
+    """
+    
+    """getFlightsToDraw
+        Returns pathList a list of dictionaries/Json of lines/flights to be passed to the javascript
+            [{lat1:Float,long1:Float,lat2:Float,long2:Float,steps:Int,flight:Str},...]
 
+        RtMnger, is type Route_Manager
+            best practice to use Route_Manager.getUniqueRoutes()
+        Stops, is type Int
+    """
+ 
+    """textToDateTime
+       Returns datetime modified for the selected filter time
+    """
+    
+    """getPaths
+        Returns a tuple (pathList,routeList)
+            pathList a list of dictionary/Json of lines/flights to be passed to the HTML&javascript
+                [{lat1:Float,long1:Float,lat2:Float,long2:Float,steps:Int,flight:Str},...]
+            routeList a list of dictionaries of dictionaries/Json of routes to a destination to be passed to the HTML&javascript to be displayed in a list
+                [{Time: Route Time in seconds, Steps: stops in Route, Flights:{flight1: str(Departure time iata_code->iata_code), flight_n: str(Departure time iata_code->iata_code)}},...] 
+    
+        FindFlightOb, is type Route_Finder for day of interest 
+        Start, is type Str of an iata_code
+        End, is type Str of an iata_code
+        Time, is type datetime 
+                used to get routes after it
+        Stops, is type Int
+    """
+    
