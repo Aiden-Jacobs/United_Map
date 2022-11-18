@@ -4,7 +4,7 @@ Setup for Linux
     In project directory 
     1)git init
     2)git clone URL
-    3)python3 -m venv
+    3)python3 -m venv .
     4). venv/bin/activate
     5)pip install flask
     6)pip install pandas
